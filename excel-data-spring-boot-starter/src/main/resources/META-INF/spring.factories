@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration= its.qisda.common.config.ExcelDataConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration= its.common.config.ExcelDataConfiguration
