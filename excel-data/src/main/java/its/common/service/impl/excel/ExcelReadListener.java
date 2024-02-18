@@ -35,8 +35,14 @@ public class ExcelReadListener<T> implements ReadListener {
         if(infos==null){
             infos=new ArrayList<>();
         }
+
+        if (o instanceof ExcelDataReadProxy) {
+            o = (ExcelDataReadProxy) ((ExcelDataReadProxy) o).afterRowRead(o, analysisContext);
+        }
+
         //输入有效性校验
         var result = validator.validate(o);
+
         if (!result.isEmpty()) {
             ConstraintViolationsInfo info = new ConstraintViolationsInfo(o, analysisContext.readRowHolder().getRowIndex(), result);
             infos.add(info);
@@ -46,9 +52,6 @@ public class ExcelReadListener<T> implements ReadListener {
 
         }
 
-        if (o instanceof ExcelDataReadProxy) {
-            o = (ExcelDataReadProxy) ((ExcelDataReadProxy) o).afterRowRead(o, analysisContext);
-        }
         //脱敏
         if (excelOptions != null && !excelOptions.exportSensitiveData()) {
             analysisContext.readRowHolder().setCurrentRowAnalysisResult(Sensitive.desensitize(o));

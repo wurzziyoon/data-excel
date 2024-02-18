@@ -36,4 +36,6 @@ public @interface ExcelOptions {
      * @return
      */
     boolean analyzeAllRowErrors() default  false;
+
+
 }
